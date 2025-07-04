@@ -1,6 +1,6 @@
 import { TablePagination } from "@mui/material";
 import React from "react";
-import type { PaginationProps } from '../types/Board';
+import type { PaginationProps } from '../types/board';
 
 const Pagination = ({
   page,

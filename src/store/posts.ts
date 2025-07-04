@@ -5,6 +5,10 @@ interface Post {
   title: string;
   views: number;
   body : string;
+  reactions : {
+    likes : number,
+    dislikes : number
+  }
 }
 
 interface PostsState {

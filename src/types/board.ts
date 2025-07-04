@@ -1,5 +1,5 @@
 export interface Column {
-  id: "id" | "title" | "views";
+  id: "id" | "title" | "body" | "views";
   label: string;
   minWidth?: number;
   align?: "right";
@@ -10,7 +10,7 @@ export interface Posts {
   id: number;
   title: string;
   views: number;
-  body: string;
+  body : string;
 }
 
 export interface Props {

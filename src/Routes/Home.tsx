@@ -8,6 +8,9 @@ import Search from "../Components/Search";
 import Board from "../Components/Board";
 import { Button, Box } from "@mui/material";
 import { useState } from "react";
+import Loading from "../Components/Common/Loading";
+
+
 
 export const Home = () => {
   const posts = useSelector((state: RootState) => state.posts.posts);
@@ -30,7 +33,7 @@ export const Home = () => {
       });
   }, [dispatch]);
 
-  if (loading) return <div>로딩 중...</div>;
+  if (loading) return <Loading/>;
 
 
   return (

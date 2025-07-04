@@ -1,10 +1,10 @@
 import { Box, TextField } from "@mui/material";
-import type { SearchProps } from '../types/Board';
+import type { SearchProps } from '../types/board';
 
 const Search = ({ query, setQuery }: SearchProps) => {
   return (
     <>
-      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 4 }}>
+      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
         <TextField
           value={query}
           onChange={e => setQuery(e.target.value)}

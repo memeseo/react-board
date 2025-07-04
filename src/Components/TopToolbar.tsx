@@ -1,6 +1,15 @@
 import { AppBar, Toolbar, Button, Typography, Box } from "@mui/material";
+import { useState } from "react";
+import { useAuthModal } from "../Contexts/authModalContext";
 
 const TopToolbar = () => {
+  const { openLogin } = useAuthModal();
+  const [showSignup, setShowSignup] = useState(false);
+
+  const handleShowSignup = () => {
+    setShowSignup(true); // 버튼 누르면 SignupForm 보여줌
+  };
+
   return (
     <AppBar
       position="static"
@@ -22,7 +31,7 @@ const TopToolbar = () => {
           sx={{
             fontFamily: '"Noto Sans KR", sans-serif',
             display: "flex",
-            alignItems: "center"
+            alignItems: "center",
           }}
         >
           <Typography sx={{ fontWeight: 900 }} variant="h6" component="div">
@@ -30,8 +39,7 @@ const TopToolbar = () => {
           </Typography>
         </Box>
 
-        {/* 오른쪽: 로그인 버튼 */}
-        <Button color="inherit">Login</Button>
+        <Button color="inherit" onClick={openLogin}>Login</Button>
       </Toolbar>
     </AppBar>
   );
