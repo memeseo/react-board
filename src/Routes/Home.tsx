@@ -11,6 +11,7 @@ import { useState } from "react";
 import Loading from "../Components/Common/Loading";
 import { useNavigate } from "react-router-dom";
 import { useAuthUser } from "../Contexts/authUserContext";
+import { getPosts } from "../apis/board";
 
 export const Home = () => {
   const posts = useSelector((state: RootState) => state.posts.posts);
@@ -29,13 +30,18 @@ export const Home = () => {
   useEffect(() => {
     if (posts.length > 0) return;
 
-    dispatch(setLoading(true));
-    fetch("https://dummyjson.com/posts")
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch(setPosts(data.posts));
+    const getPostFunc = async () => {
+      const data = await getPosts();
+      const posts = data.posts;
+
+      if (posts) {
+        dispatch(setPosts(posts));
         dispatch(setLoading(false));
-      });
+      }
+    };
+
+    getPostFunc();
+
   }, [dispatch]);
 
   if (loading) return <Loading />;

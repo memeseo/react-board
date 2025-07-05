@@ -57,3 +57,17 @@ export const logOut = async (): Promise<void> => {
     throw error;
   }
 };
+
+
+export const getPosts = async (): Promise<UserInfo> => {
+  try{
+    const result =  await fetch("https://dummyjson.com/posts");
+    const posts = await result.json();
+    
+    return posts;
+  }catch(error: any){
+    console.error("❌ 게시글 가져오기 실패:", error.message);
+    throw error;
+  }
+
+}

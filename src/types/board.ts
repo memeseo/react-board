@@ -15,7 +15,7 @@ export interface Posts {
   body : string;
 }
 
-export interface Props {
+export interface PostsProps {
   posts: Posts[];
 }
 

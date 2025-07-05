@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import Pagination from "../Components/Pagination";
-import type { Column, Posts, Props } from "../types/board";
+import type { Column, Posts, PostsProps } from "../types/board";
 import { useNavigate } from "react-router-dom";
 import { useAuthUser } from "../Contexts/authUserContext";
 import SideToolbar from "./SideToolbar";
@@ -28,7 +28,7 @@ const columns: readonly Column[] = [
   },
 ];
 
-const Board = ({ posts }: Props) => {
+const Board = ({ posts }: PostsProps) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [selected, setSelected] = useState<number[]>([]);
