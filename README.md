@@ -23,7 +23,7 @@ Firebase 인증 + Redux 게시판 프로젝트
 - 게시글 검색, 페이지네이션
 
 ## 폴더 구조
-
+```txt
 src/
 ├── Components/
 │   ├── Board.tsx             # 게시글 목록 테이블
@@ -54,7 +54,7 @@ src/
 │
 ├── App.tsx                   # 라우팅 및 전역 렌더링
 └── main.tsx                  # 앱 진입점
-
+```
 
 ## 실행 방법
 
