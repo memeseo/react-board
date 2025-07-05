@@ -24,7 +24,7 @@ const BoardDetail = () => {
           elevation={3}
           sx={{
             p: 4,
-            minHeight: "600px", // 원하는 기본 높이
+            minHeight: "600px",
             display: "flex",
             flexDirection: "column",
           }}

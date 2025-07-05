@@ -30,6 +30,8 @@ export const Home = () => {
   useEffect(() => {
     if (posts.length > 0) return;
 
+    dispatch(setLoading(true));
+
     const getPostFunc = async () => {
       const data = await getPosts();
       const posts = data.posts;
