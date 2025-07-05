@@ -9,21 +9,26 @@ import Board from "../Components/Board";
 import { Button, Box } from "@mui/material";
 import { useState } from "react";
 import Loading from "../Components/Common/Loading";
-
-
+import { useNavigate } from "react-router-dom";
+import { useAuthUser } from "../Contexts/authUserContext";
 
 export const Home = () => {
   const posts = useSelector((state: RootState) => state.posts.posts);
   const loading = useSelector((state: RootState) => state.posts.loading);
   const dispatch = useDispatch<AppDispatch>();
-
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
+  const { user } = useAuthUser();
+  const isAdminOrUser = ["admin", "user"].includes(user?.role);
+
   const filteredPosts = posts.filter(
     (post) =>
       post.title.includes(searchQuery) || post.body.includes(searchQuery)
   );
 
   useEffect(() => {
+    if (posts.length > 0) return;
+
     dispatch(setLoading(true));
     fetch("https://dummyjson.com/posts")
       .then((res) => res.json())
@@ -33,43 +38,38 @@ export const Home = () => {
       });
   }, [dispatch]);
 
-  if (loading) return <Loading/>;
-
+  if (loading) return <Loading />;
 
   return (
     <>
       <TopToolbar />
-
       <Container maxWidth="lg" sx={{ mt: 6, px: 0 }}>
         <Search query={searchQuery} setQuery={setSearchQuery} />
-        <div
-          style={{
-            fontSize: "12px",
-            fontFamily: '"Noto Sans KR", sans-serif',
-            color: "gray",
-            paddingBottom: "10px",
-          }}
-        >
-          총 게시글 수 : {filteredPosts.length}
-        </div>
         <Board posts={filteredPosts} />
-        <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2, mt: 2 }}>
-          <Button
-            color="primary"
-            variant="outlined"
-            sx={{
-              backgroundColor: "white",
-              border: "1px solid black",
-              color: "black",
-              "&:hover": {
-                backgroundColor: "#f5f5f5",
-                borderColor: "black",
-              },
-            }}
+        {isAdminOrUser ? (
+          <Box
+            sx={{ display: "flex", justifyContent: "flex-end", mb: 2, mt: 2 }}
           >
-            글쓰기
-          </Button>
-        </Box>
+            <Button
+              onClick={() => navigate(`/write`)}
+              color="primary"
+              variant="outlined"
+              sx={{
+                backgroundColor: "white",
+                border: "1px solid black",
+                color: "black",
+                "&:hover": {
+                  backgroundColor: "#f5f5f5",
+                  borderColor: "black",
+                },
+              }}
+            >
+              글쓰기
+            </Button>
+          </Box>
+        ) : (
+          <></>
+        )}
       </Container>
     </>
   );

@@ -1,6 +1,15 @@
 import React, { useState } from "react";
-import { Modal, Box, Typography, Button, TextField, MenuItem } from "@mui/material";
+import {
+  Modal,
+  Box,
+  Typography,
+  Button,
+  TextField,
+  MenuItem,
+} from "@mui/material";
 import { useAuthModal } from "../Contexts/authModalContext";
+import { signUp } from "../apis/board";
+import type { UserRole } from "../types/board";
 
 const style = {
   position: "fixed" as const,
@@ -18,14 +27,17 @@ const SignupModal = () => {
   const { openModal, closeModal } = useAuthModal();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("user");
+  const [role, setRole] = useState<UserRole>("user");
 
   const handleSignup = async () => {
-    alert("회원가입 성공");
+    signUp(email, password, role);
+
+    setEmail("");
+    setPassword("");
+    setRole("user");
     closeModal();
-   
   };
-console.log('켜지긴함 //', openModal)
+
   return (
     <Modal open={openModal === "signup"} onClose={closeModal}>
       <Box sx={style}>
@@ -57,7 +69,12 @@ console.log('켜지긴함 //', openModal)
           <MenuItem value="user">일반</MenuItem>
           <MenuItem value="guest">게스트</MenuItem>
         </TextField>
-        <Button variant="contained" fullWidth sx={{ mt: 2 }} onClick={handleSignup}>
+        <Button
+          variant="contained"
+          fullWidth
+          sx={{ mt: 2 }}
+          onClick={handleSignup}
+        >
           가입하기
         </Button>
       </Box>

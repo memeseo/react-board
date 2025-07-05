@@ -1,14 +1,12 @@
 import { AppBar, Toolbar, Button, Typography, Box } from "@mui/material";
-import { useState } from "react";
 import { useAuthModal } from "../Contexts/authModalContext";
+import { useAuthUser } from "../Contexts/authUserContext";
+import { logOut } from '../apis/board';
 
 const TopToolbar = () => {
   const { openLogin } = useAuthModal();
-  const [showSignup, setShowSignup] = useState(false);
-
-  const handleShowSignup = () => {
-    setShowSignup(true); // 버튼 누르면 SignupForm 보여줌
-  };
+  const { user } = useAuthUser();
+  const isLogin = user?.uid;
 
   return (
     <AppBar
@@ -38,8 +36,10 @@ const TopToolbar = () => {
             SIDE.
           </Typography>
         </Box>
-
-        <Button color="inherit" onClick={openLogin}>Login</Button>
+          {
+            isLogin ? <Button color="inherit" onClick={logOut}>LOGOUT</Button> :   <Button color="inherit" onClick={openLogin}>Login</Button>
+          }
+     
       </Toolbar>
     </AppBar>
   );

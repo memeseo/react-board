@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Box, Typography, Button, TextField } from "@mui/material";
 import { useAuthModal } from "../Contexts/authModalContext";
+import { logIn } from "../apis/board";
 
 const style = {
   position: "fixed" as const,
@@ -21,9 +22,10 @@ const LoginModal = () => {
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-   
-    console.log("로그인 시도:", { email, password });
+    logIn(email, password);
     
+    setEmail("");
+    setPassword("");
     closeModal();
   };
 
@@ -67,7 +69,6 @@ const LoginModal = () => {
           fullWidth
           sx={{ mt: 1 }}
           onClick={() => {
-            // closeModal();
             openSignup();
           }}
         >

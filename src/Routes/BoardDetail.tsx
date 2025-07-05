@@ -6,11 +6,9 @@ import { useParams, useNavigate } from "react-router-dom";
 const BoardDetail = () => {
   const navigate = useNavigate();
   const posts = useSelector((state: RootState) => state.posts.posts);
-  const { id } = useParams(); // URL에서 :id 값을 가져옴
-
-  const post = posts.find((s) => s.id === Number(id));
-
-  console.log("디테일 : ", post);
+  const { id } = useParams(); 
+  const type = typeof id;
+  const post = posts.find((s) => s.id == (type === "string" ? id : Number(id)));
 
   return (
     <>

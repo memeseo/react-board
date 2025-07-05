@@ -1,69 +1,63 @@
-# React + TypeScript + Vite
+![미리보기](image.png)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 게시판 웹 애플리케이션
 
-Currently, two official plugins are available:
+Firebase 인증 + Redux 게시판 프로젝트
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 기술 스택
 
-## Expanding the ESLint configuration
+- React
+- TypeScript
+- Redux Toolkit
+- Firebase
+- Material UI
+- React Router
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 주요 기능
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- 회원가입, 로그인, 로그아웃
+- 사용자 역할(role): 관리자 / 일반 사용자 / 게스트
+- 게시글 목록 조회 (dummyjson API)
+- 게시글 작성 / 삭제
+- 관리자 전용 삭제 기능
+- 게시글 검색, 페이지네이션
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 폴더 구조
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+src/
+├── Components/
+│   ├── Board.tsx             # 게시글 목록 테이블
+│   ├── LoginModal.tsx        # 로그인 모달
+│   ├── Pagination.tsx        # 페이지네이션
+│   ├── Search.tsx            # 게시글 검색
+│   ├── SideToolbar.tsx       # 관리자용 삭제 버튼 및 게시글 수
+│   ├── SignupModal.tsx       # 회원가입 모달
+│   ├── TopToolbar.tsx        # 상단 도구바
+│   └── Common/               # 공통 UI 요소들
+│       ├── Loading.tsx       # 로딩 스피너
+│
+├── Contexts/
+│   ├── authModalContext.tsx  # 로그인/회원가입 모달 상태
+│   └── authUserContext.tsx   # 로그인 사용자 정보 전역 관리
+│
+├── Routes/
+│   ├── Boardetail.tsx        # 게시글 상세 페이지
+│   ├── Home.tsx              # 게시글 리스트 페이지
+│   └── WritePost.tsx         # 게시글 작성 페이지
+│
+├── store/
+│   ├── index.ts              # Redux 스토어 설정
+│   └── posts.ts              # 게시글 상태 (Slice)
+│
+├── types/
+│   └── board.ts              # 게시글 및 컬럼 타입 정의
+│
+├── App.tsx                   # 라우팅 및 전역 렌더링
+└── main.tsx                  # 앱 진입점
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 실행 방법
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+npm install
+npm run dev
+

@@ -1,20 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-interface Post {
-  id: number;
-  title: string;
-  views: number;
-  body : string;
-  reactions : {
-    likes : number,
-    dislikes : number
-  }
-}
-
-interface PostsState {
-  posts: Post[];
-  loading: boolean;
-}
+import type { PostsState } from '../types/board';
 
 const initialState: PostsState = {
   posts: [],
@@ -31,10 +16,18 @@ const posts = createSlice({
     setLoading(state, action) {
       state.loading = action.payload;
     },
+    deletePostsById(state, action) {
+      state.posts = state.posts.filter(
+        (post) => !action.payload.includes(post.id)
+      );
+    },
+    insertPost(state, action){
+      state.posts.unshift(action.payload);
+    }
   },
 });
 
-export const { setPosts, setLoading } = posts.actions;
+export const { setPosts, setLoading, deletePostsById, insertPost } = posts.actions;
 export default posts.reducer;
 
 
